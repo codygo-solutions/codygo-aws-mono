@@ -21,12 +21,25 @@ export async function handler(
   event: APIGatewayTokenAuthorizerEvent
 ): Promise<APIGatewayAuthorizerResult> {
   try {
-    return authorize(event, {
+    const result = await authorize(event, {
       domainWhitelist: AUTH0_DOMAINS_WHITELIST,
       audiencesWhitelist: AUTH0_AUDIENCES_WHITELIST,
       contextFieldsWhitelist: AUTH0_CONTEXT_FIELDS_WHITELIST,
       resourcesWhitelist: RESOURCES_WHITELIST,
     });
+
+    console.log({
+      result,
+      event,
+      env: {
+        AUTH0_DOMAINS_WHITELIST,
+        AUTH0_AUDIENCES_WHITELIST,
+        AUTH0_CONTEXT_FIELDS_WHITELIST,
+        RESOURCES_WHITELIST,
+      },
+    });
+
+    return result;
   } catch (error) {
     console.error({
       error,
