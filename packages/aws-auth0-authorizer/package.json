@@ -1,0 +1,38 @@
+{
+  "name": "@codygo/aws-auth0-authorizer",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tsup",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk",
+    "deploy": "cdk deploy --all --require-approval=never"
+  },
+  "devDependencies": {
+    "@codygo/eslint-config": "^1.0.0",
+    "@codygo/prettier-config": "^1.0.0",
+    "@types/aws-lambda": "^8.10.129",
+    "@types/jest": "^29.5.10",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/jwk-to-pem": "^2.0.3",
+    "@types/node": "20.5.9",
+    "jsonwebtoken": "^9.0.2",
+    "jwks-rsa": "^3.1.0",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "tsup": "^8.0.1",
+    "typescript": "~5.2.2"
+  },
+  "dependencies": {
+
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "tsup": {
+    "entry": ["src/authorizer/index.ts", "src/authorizer-sample/index.ts"],
+    "splitting": false,
+    "sourcemap": true,
+    "clean": true
+  }
+}

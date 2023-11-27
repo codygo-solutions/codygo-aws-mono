@@ -1,0 +1,16 @@
+{
+  "name": "@codygo/aws-mono",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "info@codygo.com",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "pack-all": "pnpm --filter '@codygo/*' exec pnpm pack",
+    "clean-all": "find . -name '*.tgz' -exec rm {} \\;"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.2"
+  }
+}
