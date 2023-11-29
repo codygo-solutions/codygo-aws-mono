@@ -1,13 +1,8 @@
-import {
-  APIGatewayAuthorizerEvent,
-  APIGatewayAuthorizerResult,
-  APIGatewayTokenAuthorizerEvent,
-} from 'aws-lambda';
+import { APIGatewayAuthorizerResult, APIGatewayTokenAuthorizerEvent } from 'aws-lambda';
 
 import { authorize } from './authorize';
 
-const AUTH0_DOMAINS_WHITELIST =
-  process.env.ALLOWED_AUTH0_WHITELIST?.split(',')?.map((d) => d.trim()) || [];
+const AUTH0_ISS_WHITELIST = process.env.AUTH0_ISS_WHITELIST?.split(',')?.map((d) => d.trim()) || [];
 
 const AUTH0_AUDIENCES_WHITELIST =
   process.env.AUTH0_AUDIENCES_WHITELIST?.split(',')?.map((d) => d.trim()) || [];
@@ -22,7 +17,7 @@ export async function handler(
 ): Promise<APIGatewayAuthorizerResult> {
   try {
     const result = await authorize(event, {
-      domainWhitelist: AUTH0_DOMAINS_WHITELIST,
+      issWhitelist: AUTH0_ISS_WHITELIST,
       audiencesWhitelist: AUTH0_AUDIENCES_WHITELIST,
       contextFieldsWhitelist: AUTH0_CONTEXT_FIELDS_WHITELIST,
       resourcesWhitelist: RESOURCES_WHITELIST,
@@ -32,7 +27,7 @@ export async function handler(
       result,
       event,
       env: {
-        AUTH0_DOMAINS_WHITELIST,
+        AUTH0_ISS_WHITELIST,
         AUTH0_AUDIENCES_WHITELIST,
         AUTH0_CONTEXT_FIELDS_WHITELIST,
         RESOURCES_WHITELIST,
@@ -45,7 +40,7 @@ export async function handler(
       error,
       event,
       env: {
-        AUTH0_DOMAINS_WHITELIST,
+        AUTH0_ISS_WHITELIST,
         AUTH0_AUDIENCES_WHITELIST,
         AUTH0_CONTEXT_FIELDS_WHITELIST,
         RESOURCES_WHITELIST,

@@ -25,12 +25,12 @@ function getJwksClient(uri: string) {
 export async function authorize(
   event: APIGatewayTokenAuthorizerEvent,
   {
-    domainWhitelist = [],
+    issWhitelist = [],
     audiencesWhitelist = [],
     contextFieldsWhitelist = [],
     resourcesWhitelist = [],
   }: {
-    domainWhitelist?: string[];
+    issWhitelist?: string[];
     audiencesWhitelist?: string[];
     contextFieldsWhitelist?: string[];
     resourcesWhitelist?: string[];
@@ -52,8 +52,8 @@ export async function authorize(
     throw Error('Could not decode token');
   }
 
-  if (domainWhitelist.length && !domainWhitelist.includes(payload.iss)) {
-    throw new Error(`Invalid iss ${payload.iss} -> ${domainWhitelist.join(',')}`);
+  if (issWhitelist.length && !issWhitelist.includes(payload.iss)) {
+    throw new Error(`Invalid iss ${payload.iss} -> ${issWhitelist.join(',')}`);
   }
 
   if (audiencesWhitelist.length && !audiencesWhitelist.some((aud) => payload.aud!.includes(aud))) {
